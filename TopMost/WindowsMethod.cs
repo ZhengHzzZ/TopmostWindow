@@ -7,13 +7,17 @@ using System.Runtime.InteropServices;
 
 namespace TopMost
 {
+    /// <summary>
+    /// Operate Windows By API
+    /// </summary>
     public class WindowsMethod
     {
-        private const int WS_VISIBLE = 268435456;//窗体可见
-        private const int WS_MINIMIZEBOX = 131072;//有最小化按钮
-        private const int WS_MAXIMIZEBOX = 65536;//有最大化按钮
-        private const int WS_BORDER = 8388608;//窗体有边框
-        private const int GWL_STYLE = (-16);//窗体样式
+        //Const Param for API
+        private const int WS_VISIBLE = 268435456;
+        private const int WS_MINIMIZEBOX = 131072;
+        private const int WS_MAXIMIZEBOX = 65536;
+        private const int WS_BORDER = 8388608;
+        private const int GWL_STYLE = (-16);
         private const int GW_HWNDFIRST = 0;
         private const int GW_HWNDNEXT = 2;
         private const int SW_HIDE = 0;
@@ -34,14 +38,19 @@ namespace TopMost
         public static extern int ShowWindow(int hwnd, int nCmdShow);
         [DllImport("user32.dll")]
         public static extern int SetWindowPos(int hwnd, int hwndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
-        //获得包含窗体可见、有边框、有最大化按钮的窗体的句柄和标题(窗体的属性出这几种外还有很多种)
+
+        /// <summary>
+        /// Get the FormInfos(Visible,Border,MinimizeBox,MaximizeBox)
+        /// </summary>
+        /// <param name="Handle"></param>
+        /// <returns></returns>
         public static List<FormInfo> GetHandleList(int Handle)
         {
             List<FormInfo> fromInfo = new List<FormInfo>();
             int handle = GetWindow(Handle, GW_HWNDFIRST);
             while (handle > 0)
             {
-                int IsTask = WS_VISIBLE | WS_BORDER | WS_MAXIMIZEBOX;//窗体可见、有边框、有最大化按钮
+                int IsTask = WS_VISIBLE | WS_BORDER | WS_MAXIMIZEBOX;
                 int lngStyle = GetWindowLongA(handle, GWL_STYLE);
                 bool TaskWindow = ((lngStyle & IsTask) == IsTask);
                 if (TaskWindow)
@@ -64,7 +73,11 @@ namespace TopMost
             return fromInfo;
         }
 
-        //获得所有窗体的句柄和标题
+        /// <summary>
+        /// Get all FormInfos
+        /// </summary>
+        /// <param name="Handle"></param>
+        /// <returns></returns>
         public static List<FormInfo> GetAllHandleList(int Handle)
         {
             List<FormInfo> fromInfo = new List<FormInfo>();
@@ -88,7 +101,11 @@ namespace TopMost
             return fromInfo;
         }
 
-        //将选中窗体设置为TopMost
+        /// <summary>
+        /// Set Window TopMost
+        /// </summary>
+        /// <param name="targetHandle"></param>
+        /// <param name="isTopMost"></param>
         public static void SetTopMost(int targetHandle, bool isTopMost)
         {
             int topmost = isTopMost ? HWND_TOPMOST : HWND_NOTOPMOST;

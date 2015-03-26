@@ -8,13 +8,19 @@ namespace TopMost
 {
     public class FormInfo
     {
+        /// <summary>
+        /// Constructors
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="handle"></param>
         public FormInfo(string title, int handle)
         {
             this.title = title;
             this.handle = handle;
         }
-        private string title;
-        private int handle;
+
+        private string title;//window's title
+        private int handle;//handle of window
 
         public string Title
         {
@@ -27,6 +33,10 @@ namespace TopMost
             set { handle = value; }
         }
 
+        /// <summary>
+        /// Override for showing in the listbox
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return this.title;
