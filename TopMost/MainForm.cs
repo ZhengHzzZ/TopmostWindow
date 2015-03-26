@@ -74,6 +74,7 @@ namespace TopMost
         {
             if (m_FormInfo_List != null)
             {
+                this.listBox1.Items.Clear();
                 foreach (FormInfo fi in m_FormInfo_List)
                 {
                     this.listBox1.Items.Add(fi);
