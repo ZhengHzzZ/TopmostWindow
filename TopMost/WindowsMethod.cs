@@ -50,7 +50,8 @@ namespace TopMost
             int handle = GetWindow(Handle, GW_HWNDFIRST);
             while (handle > 0)
             {
-                int IsTask = WS_VISIBLE | WS_BORDER | WS_MAXIMIZEBOX;
+                //int IsTask = WS_VISIBLE | WS_BORDER | WS_MAXIMIZEBOX;
+                int IsTask = WS_VISIBLE;
                 int lngStyle = GetWindowLongA(handle, GWL_STYLE);
                 bool TaskWindow = ((lngStyle & IsTask) == IsTask);
                 if (TaskWindow)
@@ -65,7 +66,7 @@ namespace TopMost
                     }
                     else
                     {
-                        fromInfo.Add(new FormInfo("", handle));
+                        //fromInfo.Add(new FormInfo("", handle));
                     }
                 }
                 handle = GetWindow(handle, GW_HWNDNEXT);
